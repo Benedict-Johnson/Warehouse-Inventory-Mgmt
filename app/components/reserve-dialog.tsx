@@ -35,6 +35,9 @@ export function ReserveDialog({ product, inventory, isOpen, onClose, onSuccess }
       const data = await response.json();
 
       if (!response.ok) {
+        if (response.status === 409) {
+          throw new Error("Error 409: Exceeding stock available. Try a different location.");
+        }
         throw new Error(data.message || "Failed to reserve");
       }
 
@@ -63,7 +66,6 @@ export function ReserveDialog({ product, inventory, isOpen, onClose, onSuccess }
               id="quantity"
               type="number"
               min="1"
-              max={inventory.availableUnits}
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -78,7 +80,7 @@ export function ReserveDialog({ product, inventory, isOpen, onClose, onSuccess }
             <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
               Cancel
             </Button>
-            <Button type="submit" disabled={loading || quantity < 1 || quantity > inventory.availableUnits}>
+            <Button type="submit" disabled={loading || quantity < 1}>
               {loading ? "Reserving..." : "Confirm Reservation"}
             </Button>
           </div>

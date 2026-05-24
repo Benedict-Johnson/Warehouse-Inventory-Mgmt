@@ -104,7 +104,7 @@ export function ReservationBanner({ reservation, productName, warehouseName, onC
       <div className="container mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold dark:text-white text-blue-950">
-            {status === "EXPIRED" ? "Reservation Expired" : status === "ERROR" ? "Error" : "Action Required"}
+            {status === "EXPIRED" ? "Error 410: Reservation Expired" : status === "ERROR" ? "Error" : "Action Required"}
           </h3>
           <p className="text-sm dark:text-blue-100 text-blue-800">
             {status === "EXPIRED" 

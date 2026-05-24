@@ -77,7 +77,7 @@ Under simultaneous requests attempting to reserve the exact same limited stock, 
 ![Simultaneous request-Success](Simultaneous%20request-Success.png)
 
 **Failed Concurrent Request (Blocked and Rejected):**
-![Simultaneous request-insufficient](Simultaneous%20request-insufficient.png)
+![Simultaneous request-insufficient](Simultaneous request-insuffiecient.png)
 
 **Frontend 409 Feedback:**
 ![Error 409](Error%20409.png)

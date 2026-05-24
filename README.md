@@ -53,7 +53,8 @@ Reservations are strictly enforced with a 5-minute time-to-live (TTL).
 * If a user attempts to confirm a reservation *after* the expiration time, the backend intercepts the request, automatically triggers a rollback to release the reserved stock, and returns an **HTTP 410 Gone** status code.
 * The frontend visibly processes this by transforming the action banner into an expiration warning.
 
-![Registration Expired](410%20Registration%20Expired.png)
+<img width="1896" height="890" alt="410 Registration Expired" src="https://github.com/user-attachments/assets/486c24e0-af1b-45f5-a681-af897b5b50d2" />
+
 
 ## 7. Concurrency Handling
 
@@ -77,10 +78,12 @@ Under simultaneous requests attempting to reserve the exact same limited stock, 
 ![Simultaneous request-Success](Simultaneous%20request-Success.png)
 
 **Failed Concurrent Request (Blocked and Rejected):**
-![Simultaneous request-insufficient](Simultaneous request-insuffiecient.png)
+<img width="913" height="185" alt="Simultaneous request-insuffiecient" src="https://github.com/user-attachments/assets/8c91dded-7061-4930-8ad9-14d6c9959912" />
+
 
 **Frontend 409 Feedback:**
-![Error 409](Error%20409.png)
+<img width="562" height="361" alt="Error 409" src="https://github.com/user-attachments/assets/b82b728e-eb73-496c-bb1f-52c8b5f583b6" />
+
 
 ## 8. Reservation Flow Screenshots
 

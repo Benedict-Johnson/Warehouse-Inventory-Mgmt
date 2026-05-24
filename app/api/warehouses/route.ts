@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -11,11 +12,11 @@ export async function GET() {
     orderBy: { name: "asc" },
   });
 
-  const data = warehouses.map((warehouse) => ({
+  const data = warehouses.map((warehouse: any) => ({
     id: warehouse.id,
     name: warehouse.name,
     location: warehouse.location,
-    inventory: warehouse.inventory.map((inv) => ({
+    inventory: warehouse.inventory.map((inv: any) => ({
       id: inv.id,
       productId: inv.productId,
       productName: inv.product.name,

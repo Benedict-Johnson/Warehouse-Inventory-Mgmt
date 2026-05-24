@@ -1,10 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { ProductList } from "./components/product-list";
+import { NextResponse } from "next/server";
 
-// Force dynamic to always fetch latest stock on page load
-export const dynamic = "force-dynamic";
-
-async function getProducts() {
+export async function GET() {
   const products = await prisma.product.findMany({
     include: {
       inventory: {
@@ -14,7 +11,7 @@ async function getProducts() {
     orderBy: { name: "asc" },
   });
 
-  return products.map((product) => ({
+  const data = products.map((product) => ({
     id: product.id,
     name: product.name,
     sku: product.sku,
@@ -27,14 +24,6 @@ async function getProducts() {
       availableUnits: inv.totalUnits - inv.reservedUnits,
     })),
   }));
-}
 
-export default async function Home() {
-  const products = await getProducts();
-
-  return (
-    <main className="bg-background min-h-screen">
-      <ProductList initialProducts={products} />
-    </main>
-  );
+  return NextResponse.json(data);
 }

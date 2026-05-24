@@ -31,47 +31,6 @@ Follow these steps to run the application locally:
 * Node.js v20+
 * A PostgreSQL instance (e.g., Supabase)
 
-### Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Variables:**
-   Create a `.env` file in the root directory and provide your database credentials:
-   ```env
-   # Transactional connection
-   DATABASE_URL="postgresql://user:password@host:5432/postgres?pgbouncer=true"
-   # Direct connection for migrations
-   DIRECT_URL="postgresql://user:password@host:5432/postgres"
-   ```
-
-4. **Prisma Generation & Migration:**
-   Generate the Prisma client and push the schema to the database:
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
-
-5. **Seed the Database:**
-   Populate the database with the initial products, warehouses, and inventory counts:
-   ```bash
-   npx prisma db seed
-   ```
-
-6. **Start the Development Server:**
-   ```bash
-   npm run dev
-   ```
-   Access the application at `http://localhost:3000`.
-
 ## 5. Database & Reservation Architecture
 
 The database schema is strictly normalized around four core entities:

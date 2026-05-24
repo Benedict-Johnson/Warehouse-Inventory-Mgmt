@@ -25,11 +25,52 @@ The application is deployed on Vercel and connected to a Supabase PostgreSQL ins
 
 ## 4. Local Setup Instructions
 
-Follow these steps to run the application locally:
+Follow these steps to safely run the application locally and seed the database.
 
 ### Prerequisites
 * Node.js v20+
 * A PostgreSQL instance (e.g., Supabase)
+
+### Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Benedict-Johnson/Warehouse-Inventory-Mgmt.git
+   cd Warehouse-Inventory-Mgmt
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Variables:**
+   Create a `.env` file in the root directory and provide your database credentials:
+   ```env
+   # Transactional connection for application logic
+   DATABASE_URL="postgresql://user:password@host:5432/postgres?pgbouncer=true"
+   # Direct connection for migrations
+   DIRECT_URL="postgresql://user:password@host:5432/postgres"
+   ```
+
+4. **Prisma Generation & Migration:**
+   Generate the Prisma client and push the schema to the database:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Seed the Database:**
+   Populate the database with the initial motorcycle products and warehouse locations:
+   ```bash
+   npx prisma db seed
+   ```
+
+6. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Access the application at `http://localhost:3000`.
 
 ## 5. Database & Reservation Architecture
 
@@ -123,3 +164,16 @@ During development, the following principles were prioritized strictly against t
 * **Reservation Consistency**: The relationship between product, warehouse, inventory, and reservations is strictly enforced.
 * **Production Deployment**: Vercel configuration was explicitly handled to guarantee strict TypeScript compilations and correct build-time generation of the Prisma client.
 
+## 11. API Summary
+
+* `GET /api/products`: Returns all products with their associated, warehouse-specific inventory availability.
+* `GET /api/warehouses`: Returns all warehouses and their internal inventory holdings.
+* `POST /api/reservations`: Creates a new temporary reservation. Requires `inventoryId` and `quantity`. Automatically deducts stock. (Returns `409` on insufficient stock).
+* `POST /api/reservations/[id]/confirm`: Finalizes an active reservation. (Returns `410` if the reservation has exceeded the 5-minute TTL).
+* `POST /api/reservations/[id]/release`: Explicitly cancels an active reservation and restores stock to the warehouse.
+
+## 12. Final Verification
+
+* `npm run build` consistently passes using Next.js Turbopack.
+* Prisma schema validations pass.
+* The application has been fully tested both locally and within the deployed Vercel production environment.

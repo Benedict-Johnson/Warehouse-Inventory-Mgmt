@@ -13,7 +13,7 @@ Key mechanics include:
 
 The application is deployed on Vercel and connected to a Supabase PostgreSQL instance. The full reservation lifecycle (including holding, expiration, confirmation, and stock adjustments) can be tested end-to-end.
 
-**Vercel URL**: [[Live Demo](https://allo-eight.vercel.app/)](https://warehouse-inventory-mgmt.vercel.app/)
+**Vercel URL**: https://warehouse-inventory-mgmt.vercel.app/
 
 ## 3. Tech Stack
 

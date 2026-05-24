@@ -123,16 +123,3 @@ During development, the following principles were prioritized strictly against t
 * **Reservation Consistency**: The relationship between product, warehouse, inventory, and reservations is strictly enforced.
 * **Production Deployment**: Vercel configuration was explicitly handled to guarantee strict TypeScript compilations and correct build-time generation of the Prisma client.
 
-## 11. API Summary
-
-* `GET /api/products`: Returns all products with their associated, warehouse-specific inventory availability.
-* `GET /api/warehouses`: Returns all warehouses and their internal inventory holdings.
-* `POST /api/reservations`: Creates a new temporary reservation. Requires `inventoryId` and `quantity`. Automatically deducts stock. (Returns `409` on insufficient stock).
-* `POST /api/reservations/[id]/confirm`: Finalizes an active reservation. (Returns `410` if the reservation has exceeded the 5-minute TTL).
-* `POST /api/reservations/[id]/release`: Explicitly cancels an active reservation and restores stock to the warehouse.
-
-## 12. Final Verification
-
-* `npm run build` consistently passes using Next.js Turbopack.
-* Prisma schema validations pass.
-* The application has been fully tested both locally and within the deployed Vercel production environment.
